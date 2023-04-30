@@ -1,0 +1,13 @@
+.mateWrapper {
+    max-width: 1320px;
+    margin: auto;
+}
+
+
+.cardList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    justify-content: center;
+    margin: 3rem;
+    column-gap: 3%;
+}

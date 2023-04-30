@@ -17,13 +17,14 @@ function App() {
   useEffect(() => {
     const auth = async () => {
       setIsLoading(false);
-      const result = await controller.auth();
-      setUserInfo([result.data]);
-      setIsLoading(true);
 
-      // setTimeout(() => {
-      //   setIsLoading(true);
-      // }, 100);
+      try {
+        const result = await controller.auth();
+        setUserInfo([result.data]);
+        setIsLoading(true);
+      } catch(err) {
+        setIsLoading(true);
+      }
     }
 
     auth();

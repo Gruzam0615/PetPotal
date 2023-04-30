@@ -1,0 +1,57 @@
+.cardItem {
+    margin: 0 2rem 3rem 0;
+    background: white;
+    position: relative;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.likeIcon {
+    position: absolute;
+    background-color: transparent;
+    right: 5px;
+    top: 5px;
+}
+
+.cardImageFigure {
+    position: relative;
+}
+
+.cardImage {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 300px;
+    object-fit: fill;
+}
+
+
+.cardDescWrapper {
+    padding: 0.5rem;
+}
+
+.cardCategory {
+    background-color: #E3E3E3;
+    width: 15%;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 5px;
+    color: black;
+}
+
+.cardDesc {
+    padding-top: 0.3rem;
+    width: 100%;
+    height: 2rem;
+}
+
+.cardLocation {
+
+}
+
+.cardDate {
+    padding-top: 0.3rem;
+}

@@ -8,3 +8,11 @@
 **/data/animals/**
 **/data/mateTextEditorImg/**
 **/data/mateBoardImg/**
+backend/.idea/.gitignore
+backend/.idea/backend.iml
+backend/.idea/modules.xml
+backend/.idea/vcs.xml
+frontend/.idea/.gitignore
+frontend/.idea/frontend.iml
+frontend/.idea/modules.xml
+frontend/.idea/vcs.xml

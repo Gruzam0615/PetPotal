@@ -1,0 +1,67 @@
+.mateFilterContainer {
+    max-width: 1320px;
+    margin: auto;
+    background-color: #F6F6F6;
+    margin: 1rem;
+}
+
+.mateFilterWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+}
+
+.locationFilterLabel {
+    flex-basis: 50px;
+}
+
+.locationFilterButton {
+    flex: 1;
+    height: 33px;
+    cursor: pointer;
+}
+
+.locationSettingContainer {
+    border: 1px solid #4AD645;
+    margin: 0.5rem 1rem 0.5rem 0.5rem;
+}
+
+.locationListWrapper {
+    display: grid;
+    /* grid-template-columns: repeat(9, 1fr); */
+    grid-template-columns: repeat(auto-fill, minmax(130px, auto));
+}
+
+.locationArea {
+    border: 1px solid #D6D6D6;
+    padding: 0.2rem 0.6rem 0.2rem 0.6rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.locationAreaActivate {
+    background-color: #4AD645;
+    color: #fff;
+}
+
+.locationDetailListWrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, auto));
+    margin-top: 1rem;
+}
+
+.detailLocationArea {
+    padding: 0.2rem 0.6rem 1rem 0.6rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+.mateFilterButtonWrapper {
+    text-align: center;
+}
+
+.mateFilterButton {
+    margin : 0.4rem;
+}
