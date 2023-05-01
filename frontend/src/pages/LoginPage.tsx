@@ -45,7 +45,6 @@ export default function LoginPage() {
       alert('로그인 정보가 일치하지 않습니다');
       return false;
     }
-
     // setUserInfo([...userInfo, result.data]);
     setUserInfo([result.data]);
     navigate('/');

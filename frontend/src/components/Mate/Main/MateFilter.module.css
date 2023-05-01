@@ -55,8 +55,12 @@
     padding: 0.2rem 0.6rem 1rem 0.6rem;
     text-align: center;
     cursor: pointer;
+    color: black;
 }
 
+.detailLocationAreaActivate {
+    color: #4AD645;
+}
 
 .mateFilterButtonWrapper {
     text-align: center;
