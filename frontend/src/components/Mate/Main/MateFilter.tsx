@@ -158,7 +158,6 @@ export default function MateFilter({handleLocationValue}: FilterObj) {
     const handleSiClick = (e: React.MouseEvent<HTMLDivElement>) => {
         const {textContent} = e.target as HTMLButtonElement;
 
-
         setFilterItem(prevState => {
             return prevState.map(obj => {
                 if (obj.siName === textContent) {
@@ -186,7 +185,6 @@ export default function MateFilter({handleLocationValue}: FilterObj) {
                                 guItem.isSelected = false;
                                 // @ts-ignore
                                 const findIndex = userSelectLocation.gu.indexOf(guItem.guName as string);
-                                console.log(findIndex);
                                 userSelectLocation.gu.splice(findIndex, 1);
                             } else {
                                 guItem.isSelected = true;
