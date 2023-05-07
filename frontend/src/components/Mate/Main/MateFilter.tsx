@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './MateFilter.module.css';
 import {useRecoilValue} from "recoil";
-import {userState, UserTypes} from '../../../recoil/user';
+import {userState, UserType} from '../../../recoil/user';
 import {FilterObj} from "./MateList";
 
 let userSelectLocation = {
@@ -12,8 +12,8 @@ let userSelectLocation = {
 export default function MateFilter({handleLocationValue}: FilterObj) {
     const [isHideLocation, setIsHideLocation] = useState(false);
     const [userSelectSi, setUserSelectSi] = useState<string | null>(null);
-    const userInfo = useRecoilValue<UserTypes[]>(userState);
-
+    const userInfo = useRecoilValue<UserType[]>(userState);
+    console.log(userInfo[0]);
     interface Gu {
         guName: string;
         isSelected: boolean;
@@ -205,6 +205,20 @@ export default function MateFilter({handleLocationValue}: FilterObj) {
             })
         })
     };
+
+    useEffect(() => {
+        setFilterItem(prevState => {
+            return prevState.map(obj => {
+                console.log(userInfo[0])
+                if (obj.siName === userInfo[0].address1) {
+                    console.log("hi???");
+                    return {...obj, isSelected: true}
+                } else {
+                    return obj
+                }
+            })
+        })
+    }, [])
 
     return (
         <section className={style.mateFilterContainer}>
