@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useRef } from 'react';
 import { useRecoilState } from "recoil";
-import { UserTypes, userState } from '../recoil/user';
+import { UserType, userState } from '../recoil/user';
 import Controller from '../api/controller';
 import naver from '../assets/icon/naver.png';
 import google from '../assets/icon/google.png';
@@ -16,7 +16,7 @@ export default function LoginPage() {
   const controller = new Controller();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [userInfo, setUserInfo] = useRecoilState<UserTypes[]>(userState);
+  const [userInfo, setUserInfo] = useRecoilState<UserType[]>(userState);
 
   const onSubmit = useCallback(async ():Promise<boolean> => {
     if(loginId.current === null || loginId.current.value === '') {
@@ -36,17 +36,30 @@ export default function LoginPage() {
     }
 
     const result = await controller.login(data);
-    console.log('result : ', result);
+    // console.log('result : ', result);
     // console.log('result : ', result.status);
     // console.log('result : ', result.data);
+    // console.log('result : ', result.data.data);
     // console.log('userInfo : ', userInfo);
 
     if(result.data.responseCode !== 200) {
       alert('로그인 정보가 일치하지 않습니다');
       return false;
     }
-    // setUserInfo([...userInfo, result.data]);
-    setUserInfo([result.data]);
+
+    const updataData = [
+      {
+        account: result.data.data.account,
+        address1: result.data.data.address1,
+        address2: result.data.data.address2,
+        address3: result.data.data.address3,
+        message: result.data.message,
+        responseCode: result.data.responseCode,
+      }
+    ];
+
+    setUserInfo(updataData);
+
     navigate('/');
     return true;
 

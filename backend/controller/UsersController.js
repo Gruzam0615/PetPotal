@@ -2,8 +2,40 @@ const Users = require('../models/Users');
 const Crypt = require('../middleware/Crypt');
 const CurrentDate = require('../middleware/CurrentDate');
 const CheckToken = require('../middleware/CheckToken');
+const DeleteToken = require('../middleware/DeleteToken');
 
-exports.insertUser = async (request, result) => {
+exports.signOut = async (request, response, result) => {
+  request.logout(async (err) => {
+    if (err) {
+      return response.send({
+        responseCode: 400,
+        data: false,
+        message: err,
+      });
+    } else {
+      let inputToken = request.headers.token;
+      let checkTokenResult = await CheckToken.CheckToken(1, inputToken);
+      if (checkTokenResult == true) {
+        const deleteToken = await DeleteToken.DeleteToken(1, inputToken);
+        response.clearCookie('token');
+        response.clearCookie('petpotal');
+        // response.redirect("/");
+        return response.send({
+          responseCode: 200,
+          data: deleteToken,
+        });
+      } else {
+        return response.send({
+          responseCode: 200,
+          data: true,
+          message: 'already signOut...',
+        });
+      }
+    }
+  });
+};
+
+exports.insertUser = async (request, response) => {
   let hashed = await Crypt.encrypt(request.body.password);
   let salt = hashed.salt;
   let hashedPass = hashed.hashedpw;
@@ -26,31 +58,31 @@ exports.insertUser = async (request, result) => {
   });
 
   if (insertUser == null) {
-    result.send({
+    response.send({
       responseCode: 200,
       message: '회원가입 실패',
     });
   } else {
-    result.send({
+    response.send({
       responseCode: 200,
       message: '회원가입 완료',
     });
   }
 };
 
-exports.findByAccount = (request, result) => {
+exports.findByAccount = (request, response) => {
   Users.findOne({
     attributes: ['account'],
     where: { account: request.body.account },
-  }).then((response) => {
-    if (response == null) {
+  }).then((res) => {
+    if (res == null) {
       // account가 중복이 아닌경우
-      result.send({
+      response.send({
         responseCode: 200,
         data: true,
       });
     } else {
-      result.send({
+      response.send({
         responseCode: 304,
         data: false,
       });
@@ -58,18 +90,18 @@ exports.findByAccount = (request, result) => {
   });
 };
 
-exports.findByNickName = (request, result) => {
+exports.findByNickName = (request, response) => {
   Users.findOne({
     attributes: ['nickName'],
     where: { account: request.body.nickName },
-  }).then((response) => {
-    if (response == null) {
-      result.send({
+  }).then((res) => {
+    if (res == null) {
+      response.send({
         responseCode: 200,
         data: true,
       });
     } else {
-      result.send({
+      response.send({
         responseCode: 304,
         data: false,
       });
@@ -173,9 +205,15 @@ exports.loginStatusCheck = async (req, res) => {
 
     if (checkTokenResult.status === true) {
       res.send({
-        account: checkTokenResult.account,
-        responseCode: 200,
-        message: 'Login Success',
+        data: {
+          account: checkTokenResult.decodeData.account,
+          address1: checkTokenResult.decodeData.address1,
+          address2: checkTokenResult.decodeData.address2,
+          address3: checkTokenResult.decodeData.address3,
+          responseCode: 200,
+          message: 'Login Success',
+        },
+        token,
       });
     } else {
       res.send({

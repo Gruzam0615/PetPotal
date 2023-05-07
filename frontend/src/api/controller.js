@@ -10,7 +10,10 @@ export default class Controller {
 
   // 로그인 상태 체크
   async auth() {
-    return this.httpClient.post(`users/auth`);
+    const result = await this.httpClient.post(`users/auth`);
+    // console.log('auth result: ', result);
+    axios.defaults.headers.common['token'] = `${result.data.token}`;
+    return result.data;
   }
 
   async join(object) {
@@ -43,16 +46,41 @@ export default class Controller {
   }
 
   async login(object) {
-    return this.httpClient.post(`users/signIn`, object);
+    // return this.httpClient.post(`users/signIn`, object);
+    const result = await this.httpClient.post(`users/signIn`, object);
+    // console.log(result);
+    axios.defaults.headers.common['token'] = `${result.data.token}`;
+    return result;
   }
 
+  async logout() {
+    const result = await this.httpClient.post('users/signOut');
+    axios.defaults.headers.common['token'] = ``;
+    return result;
+  }
+
+  async withdrawal() {
+    const result = await this.httpClient.delete('users/withdrawal');
+    if (result.data.statusCode === 200) {
+      axios.defaults.headers.common['token'] = ``;
+    }
+    return result;
+  }
+
+  // 마이 페이지 - 회원정보 가져오기
+  async mypageUserInfoGet(object) {
+    return this.httpClient.post('users/mypage/userInfoGet', object);
+  }
+
+  // 메이트 글쓰기 - 미리보기 이미지 업로드
   async mateWriteTextEditorImage(object) {
     return this.httpClient.post('mateBoard/textEditorImgFileUpload', object);
   }
 
+  // 메이트 글쓰기
   async mateWrite(object) {
-    // return this.httpClient.post(`mateBoard/insertContent`, object);
-    return this.httpClient.post(`mateBoard/test`, object);
+    return this.httpClient.post(`mateBoard/insertContent`, object);
+    // return this.httpClient.post(`mateBoard/test`, object);
     // return this.httpClient({
     //   method: 'post',
     //   url: 'mateBoard/test',
