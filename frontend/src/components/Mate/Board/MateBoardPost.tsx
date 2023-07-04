@@ -45,7 +45,7 @@ interface MateBoardPageNumberInterface {
 }
 
 export default function MateBoardPost(props:MateBoardPostInterface) {
-  const { postList, timeSort, setTimeSort, matePageNumber } = props;
+  const { postList, timeSort, setTimeSort, matePageNumber, setMatePageNumber, postTotalCount } = props;
   const userInfo = useRecoilValue<UserType[]>(userState);
   const navigater = useNavigate();
   const [mateBoardView, setMateBoardView] = useRecoilState<mateBoardViewType>(mateBoardViewState);
@@ -146,7 +146,7 @@ export default function MateBoardPost(props:MateBoardPostInterface) {
         {viewChange ?
           postList.map((el: MateBoardPostListInterface) => {
             return (
-            <div className={style.AnimalCardWrap} key={el.mateBoardIndexNumber}>
+            <div className={style.AnimalCardWrap} key={`${el.mateBoardIndexNumber}Card`}>
               <AnimalCard detailPostMoveHandler={() => detailPostMoveHandler(el)} userId={userInfo[0].account} postData={el} />
             </div>
             );
@@ -162,7 +162,7 @@ export default function MateBoardPost(props:MateBoardPostInterface) {
             </div>
           {postList.map((el: MateBoardPostListInterface) => {
             return (
-              <div key={el.mateBoardIndexNumber}>
+              <div key={`${el.mateBoardIndexNumber}Table`}>
                 <MateBoardPostTable detailPostMoveHandler={() => detailPostMoveHandler(el)} userId={userInfo[0].account} postData={el} />
               </div>
             )
@@ -184,7 +184,7 @@ export default function MateBoardPost(props:MateBoardPostInterface) {
         <div></div>
         <div className={style.bottomPageButton}>
           {props.postTotalCount > 0 && 
-          <MateBoardPostButton matePageNumber={props.matePageNumber} setMatePageNumber={props.setMatePageNumber} postTotalCount={props.postTotalCount}/>
+          <MateBoardPostButton matePageNumber={matePageNumber} setMatePageNumber={setMatePageNumber} postTotalCount={postTotalCount}/>
           }
         </div>
         <div className={style.bottomWriteButton}>
