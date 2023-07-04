@@ -223,7 +223,7 @@ exports.findAllMateBoardDesc = async (request, result) => {
 };
 
 /**
- * 사용자 계정을 매개변수로 글 목록을 조회하는 함수
+ * 사용자 계정을 매개변수로 글 목록(구인)을 조회하는 함수
  * @param {*} request 
  * @param {*} result 
  */
@@ -250,6 +250,75 @@ exports.findByUsersAccount = async (request, result) => {
         }
       ],
       where: {
+        mateBoardCategory: 1,
+        mateBoardStatus: 1,
+        "$Users.account$": request.params.usersAccount,
+      },
+      offset: offset,
+      limit: limit,
+      order: [['mateBoardRegistDate', 'DESC']],
+    }).then((response) => {
+      if(response == null) {
+        console.log("사용자 계정과 일치하는 게시글 검색 결과가 존재하지 않습니다.");
+        result.status(403).send({         
+          responseCode: 403,
+          data: { count: 0, rows: [] },
+          message: 'no result',
+        });
+      } else {
+        console.log("사용자 계정과 일치하는 게시글 검색 결과를 전송합니다.");
+        result.status(200).send({
+          responseCode: 200,
+          data: response,
+        });
+      }
+    })
+    .catch((err) => {
+      console.log("사용자 계정과 일치하는 게시글 조회 실패");
+      console.error(err);
+      result.status(500).send({
+        responseCode: 500,
+        data: { count: 0, rows: [] },
+        message: "사용자 계정과 일치하는 게시글 조회 실패"
+      })
+    })
+  } else {
+    result.send({
+      responseCode: 400,
+      message: 'Incorrect Key',
+    });
+  }
+};
+
+/**
+ * 사용자 계정을 매개변수로 글 목록(구직)을 조회하는 함수
+ * @param {*} request 
+ * @param {*} result 
+ */
+exports.findByUsersAccount2 = async (request, result) => {
+  const inputToken = request.headers.token;
+  const checkTokenResult = await CheckToken.CheckToken(1, inputToken);
+
+  let pageNumber = request.params.pageNumber;
+  const limit = 9;
+  let offset = 0;
+
+  if(pageNumber > 1) {
+    offset = limit * (pageNumber - 1);
+  }
+
+  if(checkTokenResult.result === true) {
+    await MateBoard.findAndCountAll({
+      // attributes: ["animalsUsersIndexNumber"],
+      include: [
+        {
+          model: Users,
+          as: "Users",
+          attributes: [ "account" ]
+        }
+      ],
+      where: {
+        mateBoardCategory: 2,
         mateBoardStatus: 1,
         "$Users.account$": request.params.usersAccount,
       },

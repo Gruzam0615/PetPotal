@@ -11,6 +11,7 @@ router.post('/insertContent', uploadInsertContentHandler, MateBoardController.in
 router.post('/textEditorImgFileUpload', MateBoardController.textEditorImgFileUpload);
 router.get('/findAllContentDesc/:pageNumber', MateBoardController.findAllMateBoardDesc);
 router.get('/findByUser/:usersAccount', MateBoardController.findByUsersAccount);
+router.get("/findByUser2/:usersAccount", MateBoardController.findByUsersAccount2)
 router.get("/findByIndex/:mateBoardIndexNumber", MateBoardController.findByIndexNumber);
 router.put('/updateContent', uploadInsertContentHandler, MateBoardController.updateMateBoard);
 router.put("/deleteContent", MateBoardController.deleteMateBoard);
