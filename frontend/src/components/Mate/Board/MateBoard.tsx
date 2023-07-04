@@ -30,7 +30,8 @@ export default function MateBoard() {
   const [ kindDataList, setKindDataList ] = useState<String[]>([]);
   const [ boxPostType, setBoxPostType ] = useState<String[]>([]);
   const controller = new Controller();
-  const boxPostAmount = useRef<HTMLInputElement>(null);
+  // const boxPostAmount = useRef<HTMLInputElement>(null);
+  const [ boxPostAmountValue, setBoxPostAmountValue ] = useState<number>(0);
   const [ searchQuery, setSearchQuery] = useState<searchQueryInterface>({
     searchRegion: '',
     searchKind: '',
@@ -125,9 +126,10 @@ export default function MateBoard() {
     setRegionDataList([]);
     setKindDataList([]);
     setBoxPostType([]);
-    if (boxPostAmount.current) {
-      boxPostAmount.current.value = '0';
-    }
+    setBoxPostAmountValue(0);
+    // if (boxPostAmount.current) {
+    //   boxPostAmount.current.value = '0';
+    // }
     setSearchQuery({
       searchRegion: '',
       searchKind: '',
@@ -203,7 +205,7 @@ export default function MateBoard() {
   }
 
   const boxSearch = ():void => {
-    const boxPostAmountValue = Number(boxPostAmount.current?.value);
+    // const boxPostAmountValue = Number(boxPostAmount.current?.value);
     let boxPostTypeValue = '';
     if(boxPostType.length === 1 ) {
       boxPostTypeValue = boxPostType[0].toString();
@@ -346,16 +348,17 @@ export default function MateBoard() {
           <div className={style.boxCategory}>
             <span>구분</span>
             <div>
-              <input type='checkbox' value='구함' id='boxCategoryWanted' onChange={postTypeChangeFunction} checked={boxPostType.includes('1')} />
+              <input type='checkbox' value='1' id='boxCategoryWanted' onChange={postTypeChangeFunction} checked={boxPostType.includes('1')} />
               <label htmlFor='boxCategoryWanted'>구함</label>
-              <input type='checkbox' value='지원' id='boxCategorySupport' onChange={postTypeChangeFunction} checked={boxPostType.includes('2')} />
+              <input type='checkbox' value='2' id='boxCategorySupport' onChange={postTypeChangeFunction} checked={boxPostType.includes('2')} />
               <label htmlFor='boxCategorySupport'>지원</label>
             </div>
           </div>
           <div className={style.boxAmount}>
             <span>금액</span>
             <div>
-              <input ref={boxPostAmount} type='number' placeholder='0' min='0' defaultValue='0' />
+              {/* <input ref={boxPostAmount} type='number' placeholder='0' min='0' defaultValue='0' /> */}
+              <input type='number' placeholder='0' min='0' value={boxPostAmountValue} onChange={(e) => setBoxPostAmountValue(Number(e.target.value))} />
               <span>원 이상</span>
             </div>
           </div>
