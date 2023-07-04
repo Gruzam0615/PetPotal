@@ -169,9 +169,10 @@ export default function MateBoard() {
       setPostTotalCount(result.data.data.count);
       return result.data.data;
     } catch (err:any) {
-      console.log(err);
+      // console.log(err);
       if(err.response.status === 304) {
-        return err.data.data;
+        const data = { count: 0, rows: [] };
+        return data;
       }
       openAlert({
         title: '게시글 데이터 로딩 Error',
