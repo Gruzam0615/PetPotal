@@ -45,7 +45,7 @@ exports.insertMateBoard = async (request, result) => {
     
     let geocodeKeyword = `${request.body.mateBoardAddress1} ${request.body.mateBoardAddress2} ${request.body.mateBoardAddress3}`;
     // console.log("geocode Keyword:", geocodeKeyword);
-    const geocodeResult = await geocode2(geocodeKeyword);
+    // const geocodeResult = await geocode2(geocodeKeyword);
     // console.log("geocode Result:", geocodeResult);
 
     const usersIndexNumber = await Users.findOne({
@@ -73,8 +73,8 @@ exports.insertMateBoard = async (request, result) => {
         mateBoardAddress2: request.body.mateBoardAddress2,
         mateBoardAddress3: request.body.mateBoardAddress3,
         mateBoardAddress4: request.body.mateBoardAddress4,
-        mateBoardLat: geocodeResult.lat,
-        mateBoardLng: geocodeResult.lng,
+        mateBoardLat: request.body.mateBoardLat,
+        mateBoardLng: request.body.mateBoardLng,
         mateBoardPhotos: matePhotosList.toString(),
         mateBoardCategory: parseInt(request.body.mateBoardCategory),
         mateBoardRegistDate: currentTimeStampDate,
@@ -115,8 +115,8 @@ exports.insertMateBoard = async (request, result) => {
         mateBoardFee: parseInt(request.body.amount),
         mateBoardContent1: request.body.detailContent,
         mateBoardContent2: request.body.cautionContent,
-        mateBoardLat: geocodeResult.lat,
-        mateBoardLng: geocodeResult.lng,
+        mateBoardLat: request.body.mateBoardLat,
+        mateBoardLng: request.body.mateBoardLng,
         mateBoardPhotos: matePhotosList.toString(),
         mateBoardCategory: parseInt(request.body.mateBoardCategory),
         mateBoardRegistDate: currentTimeStampDate,
