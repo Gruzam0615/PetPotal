@@ -346,9 +346,9 @@ export default function MateBoard() {
           <div className={style.boxCategory}>
             <span>구분</span>
             <div>
-              <input type='checkbox' value='구함' id='boxCategoryWanted' onChange={postTypeChangeFunction} />
+              <input type='checkbox' value='구함' id='boxCategoryWanted' onChange={postTypeChangeFunction} checked={boxPostType.includes('1')} />
               <label htmlFor='boxCategoryWanted'>구함</label>
-              <input type='checkbox' value='지원' id='boxCategorySupport' onChange={postTypeChangeFunction} />
+              <input type='checkbox' value='지원' id='boxCategorySupport' onChange={postTypeChangeFunction} checked={boxPostType.includes('2')} />
               <label htmlFor='boxCategorySupport'>지원</label>
             </div>
           </div>
