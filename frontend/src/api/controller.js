@@ -162,7 +162,7 @@ export default class Controller {
       sort = 'Asc';
     }
 
-    if(account === '') {
+    if(account === '' || account === undefined) {
       return this.httpClient.get(`openMateBoard/findAllContent${sort}/${pageNumber}`,
       {
         params: searchQuery,
@@ -209,6 +209,11 @@ export default class Controller {
   // 메이트 게시판 - 상세 글 수정
   async mateBoardUpdatePost(object) {
     return this.httpClient.put(`mateBoard/updateContent`, object);
+  }
+
+  // 마이 페이지 - 메이트 본인 글 가져오기
+  async myMateBoardPost(account) {
+    return this.httpClient.get(`mateBoard/findByUser/${account}`);
   }
 
 }

@@ -114,7 +114,7 @@ export default function MyInfoModifyModal(props:MyInfoModifyModalInterface) {
 
   const daumPostCodeopen = useDaumPostcodePopup(POSTCODE_URL);
 
-  type Value = {sido: string, sigungu: string, zonecode: string, jibunAddress:string, address: string, userSelectedType: string}
+  type Value = {sido: string, sigungu: string, zonecode: string, jibunAddress:string, address: string, userSelectedType: string, roadname: string, bname: string}
 
   const onComplete = (data : Value) => {
     if(data.userSelectedType === 'R') {
@@ -122,15 +122,25 @@ export default function MyInfoModifyModal(props:MyInfoModifyModalInterface) {
       const fullAddress = `(${data.zonecode}) ${data.address}`;
       setValue('address', fullAddress, { shouldValidate: true, shouldDirty: true });
       setValue('address1', data.sido);
+      // 세종특별자치시처럼 구가 없는 경우가 있음
       setValue('address2', data.sigungu);
-      setValue('address3', data.address.slice(data.address.indexOf(data.sigungu) + data.sigungu.length + 1));
+      if(data.sigungu === '') {
+        setValue('address3', data.address.slice(data.address.indexOf(data.roadname)));
+      } else {
+        setValue('address3', data.address.slice(data.address.indexOf(data.sigungu) + data.sigungu.length + 1));
+      }
     } else {
       // 지번 주소
       const fullAddress = `(${data.zonecode}) ${data.jibunAddress}`;
       setValue('address', fullAddress, { shouldValidate: true, shouldDirty: true });
       setValue('address1', data.sido);
+      // 세종특별자치시처럼 구가 없는 경우가 있음
       setValue('address2', data.sigungu);
-      setValue('address3', data.jibunAddress.slice(data.jibunAddress.indexOf(data.sigungu) + data.sigungu.length + 1));
+      if(data.sigungu === '') {
+        setValue('address3', data.jibunAddress.slice(data.jibunAddress.indexOf(data.bname)));
+      } else {
+        setValue('address3', data.jibunAddress.slice(data.jibunAddress.indexOf(data.sigungu) + data.sigungu.length + 1));
+      }
     }
   };
 
@@ -184,6 +194,7 @@ export default function MyInfoModifyModal(props:MyInfoModifyModalInterface) {
         } catch (err:any) {
           // console.log('err ', err);
           if(err.response.data.responseCode === 403 && err.response.data.data === 3) {
+            closeConfirm();
             openAlert({
               title: '회원정보 수정 실패',
               type: 'error',
@@ -280,6 +291,10 @@ export default function MyInfoModifyModal(props:MyInfoModifyModalInterface) {
                 maxLength: {
                   value: 30,
                   message : '1글자 이상 30자 이하로 입력해주세요',
+                },
+                pattern: {
+                  value: /^[A-Za-z0-9가-힣][A-Za-z0-9가-힣\s]{0,28}[A-Za-z0-9가-힣]$/,
+                  message: '30자 이내 영문, 한글, 숫자만 입력가능합니다.',
                 }
               }
             )}
@@ -331,6 +346,10 @@ export default function MyInfoModifyModal(props:MyInfoModifyModalInterface) {
               {
                 required: true,
                 minLength: 1,
+                pattern: {
+                  value: /^[A-Za-z0-9가-힣][A-Za-z0-9가-힣\s]{0,28}[A-Za-z0-9가-힣]$/,
+                  message: '30자 이내 영문, 한글, 숫자만 입력가능합니다.',
+                }
               }
             )}
             type='text' placeholder='상세주소를 입력하세요' />
