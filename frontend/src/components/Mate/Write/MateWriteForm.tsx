@@ -377,8 +377,8 @@ export default function MateWriteForm(props:mateWriteFormInterface) {
               {
                 required: {value: true, message: '이름을 입력해주세요'},
                 pattern: {
-                  value: /^[A-Za-z0-9가-힣][A-Za-z0-9가-힣\s]{0,28}[A-Za-z0-9가-힣]$/,
-                  message: '30자 이내 영문, 한글, 숫자만 입력가능합니다.',
+                  value: /^[A-Za-z0-9가-힣][A-Za-z0-9가-힣\s]{0,19}$/,
+                  message: '20자 이내 영문, 한글, 숫자만 입력가능합니다.',
                 }
               },
               )}
@@ -457,7 +457,7 @@ export default function MateWriteForm(props:mateWriteFormInterface) {
               {
                 required: {value: true, message: '품종을 입력해주세요'},
                 pattern: {
-                  value: /^[A-Za-z0-9가-힣][A-Za-z0-9가-힣\s]{0,28}[A-Za-z0-9가-힣]$/,
+                  value: /^[A-Za-z0-9가-힣][A-Za-z0-9가-힣\s]{0,29}$/,
                   message: '30자 이내 영문, 한글, 숫자만 입력가능합니다.',
                 }
               },
