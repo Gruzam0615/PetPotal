@@ -11,8 +11,6 @@ Quill.register('modules/ImageResize', ImageResize);
 // typescript resize를 해도 toolbar에서 문제가 발생하는 현상 확인되어 일단, js 파일로 진행
 
 export default function MateWriteTextEditorQuil({ placeholderText, name, setValueHandler, initialValue }) {
-  // eslint-disable-next-line no-unused-vars
-  const [imgTempList, setImgTempList] = useState([]);
   const quillRef = useRef();
   const controller = new Controller();
   const { openAlert } = useAlert();
@@ -30,15 +28,12 @@ export default function MateWriteTextEditorQuil({ placeholderText, name, setValu
 
       try {
         const result = await controller.mateWriteTextEditorImage(formData);
-        // console.log(result.data);
+        console.log(result.data);
         const imgUrl = result.data.imgUrl;
         const editor = quillRef.current.getEditor();
         const range = editor.getSelection();
         editor.insertEmbed(range.index, 'image', imgUrl);
 
-        // console.log('fileName : ', result.data.fileName);
-        setImgTempList((prev) => [...prev, result.data.fileName]);
-        // setImgTemp(result.data.fileName);
       } catch (error) {
         openAlert({
           title: '텍스트에디터 이미지 에러',
@@ -51,7 +46,7 @@ export default function MateWriteTextEditorQuil({ placeholderText, name, setValu
   }, []);
 
   const onChangeContents = (e) => {
-    // console.log(e);
+    console.log(e);
     setValueHandler(name, e);
   };
 
@@ -109,7 +104,8 @@ export default function MateWriteTextEditorQuil({ placeholderText, name, setValu
         ],
         handlers: { image: imageHandler },
       },
-      ImageResize: { modules: ['Resize'] },
+      // 이미지 리사이트는 정상작동 하지만, 이미지를 선택한 후에 삭제 시 에러가 발생(모듈에서 생기는 오류로 판단)
+      // ImageResize: { modules: ['Resize'] },
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -122,7 +118,6 @@ export default function MateWriteTextEditorQuil({ placeholderText, name, setValu
         style={{ height: '200px' }}
         placeholder={placeholderText || ''}
         ref={quillRef}
-        value={initialValue}
       />
     </>
   );
