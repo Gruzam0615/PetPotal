@@ -35,7 +35,7 @@ const signIn = (request, response, done) => {
             message: 'Login Failure',
           });
         } else {
-          // signInTimeUpdate(request.body.account);
+          signInTimeUpdate(request.body.account);
           response.cookie('token', users, {
             httpOnly: true,
             signed: true,
