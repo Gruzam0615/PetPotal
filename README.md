@@ -24,14 +24,14 @@ Members: 3 people<br />
 Source Code Github Link: https://github.com/PetPotal/PetPotal
 
 <h3> 프로젝트 팀원 </h3>
+
 |박효현(FE)|박민재(BE)|이종민(FE)|
 |:---:|:---:|:---:|
 |<img src="https://avatars.githubusercontent.com/u/116782344?v=4" width="100" >|<img src="https://avatars.githubusercontent.com/u/20450971?v=4" width="100" >|<img src="https://avatars.githubusercontent.com/u/57649713?v=4" width="100" >|<a href="https://github.com/doch2130"><img src="https://img.shields.io/badge/GitHub-181717?style=plastic&logo=GitHub&logoColor=white"/></a>|<a href="https://github.com/Gruzam0615"><img src="https://img.shields.io/badge/GitHub-181717?style=plastic&logo=GitHub&logoColor=white"/></a>|<a href="https://github.com/tux31337"><img src="https://img.shields.io/badge/GitHub-181717?style=plastic&logo=GitHub&logoColor=white"/></a>| 
 
 <h3> 4. 배포 사이트 </h3>
 <h4> 임시 사이트 </h4>
-<hr />
-<a href="http://101.101.210.118:6300/"><img src="/logo.png" style="width: 200px;" alt='임시' /></a>
+<a href="http://101.101.210.118:6300/"><img src="/frontend/src/assets/icon/Logo.png" style="width: 200px;" alt='임시' /></a>
 
 <h3> 5. 기술 스택 </h3>
 <h3> Front-end </h3>
