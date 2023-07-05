@@ -254,8 +254,8 @@ exports.findByUsersAccount = async (request, result) => {
         mateBoardStatus: 1,
         "$Users.account$": request.params.usersAccount,
       },
-      offset: offset,
-      limit: limit,
+      // offset: offset,
+      // limit: limit,
       order: [['mateBoardRegistDate', 'DESC']],
     }).then((response) => {
       if(response == null) {
@@ -322,8 +322,8 @@ exports.findByUsersAccount2 = async (request, result) => {
         mateBoardStatus: 1,
         "$Users.account$": request.params.usersAccount,
       },
-      offset: offset,
-      limit: limit,
+      // offset: offset,
+      // limit: limit,
       order: [['mateBoardRegistDate', 'DESC']],
     }).then((response) => {
       if(response == null) {
