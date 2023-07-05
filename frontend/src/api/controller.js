@@ -216,4 +216,9 @@ export default class Controller {
     return this.httpClient.get(`mateBoard/findByUser/${account}`);
   }
 
+  // 마이 페이지 - 메이트 지원한 글 가져오기
+  async myMateSupportBoardPost(account) {
+    return this.httpClient.get(`mateBoard/findByUser2/${account}`);
+  }
+
 }
