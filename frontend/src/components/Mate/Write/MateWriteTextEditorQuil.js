@@ -46,7 +46,7 @@ export default function MateWriteTextEditorQuil({ placeholderText, name, setValu
   }, []);
 
   const onChangeContents = (e) => {
-    console.log(e);
+    // console.log(e);
     setValueHandler(name, e);
   };
 
