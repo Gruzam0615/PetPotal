@@ -35,7 +35,7 @@ const signIn = (request, response, done) => {
             message: 'Login Failure',
           });
         } else {
-          // signInTimeUpdate(request.body.account);
+          signInTimeUpdate(request.body.account);
           response.cookie('token', users, {
             httpOnly: true,
             signed: true,
@@ -769,14 +769,11 @@ const updateProfileImage = async (request, response) => {
  */
 const dormancyUsers = async (request, response) => {
   const currentTimeStamp = CurrentDate.CurrentTimeStamp();
-  const checkTokenResult = await CheckToken.CheckToken(
-    1,
-    request.headers.token
-  );
+  const checkTokenResult = await CheckToken.CheckToken(1, request.headers.token);
 
   // console.log(request.body.account);
 
-  if (checkTokenResult == true) {
+  if (checkTokenResult.result == true) {
     Users.update(
       {
         modifiedDate: currentTimeStamp,
