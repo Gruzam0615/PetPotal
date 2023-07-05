@@ -30,7 +30,8 @@ export default function MateBoard() {
   const [ kindDataList, setKindDataList ] = useState<String[]>([]);
   const [ boxPostType, setBoxPostType ] = useState<String[]>([]);
   const controller = new Controller();
-  const boxPostAmount = useRef<HTMLInputElement>(null);
+  // const boxPostAmount = useRef<HTMLInputElement>(null);
+  const [ boxPostAmountValue, setBoxPostAmountValue ] = useState<number>(0);
   const [ searchQuery, setSearchQuery] = useState<searchQueryInterface>({
     searchRegion: '',
     searchKind: '',
@@ -125,9 +126,10 @@ export default function MateBoard() {
     setRegionDataList([]);
     setKindDataList([]);
     setBoxPostType([]);
-    if (boxPostAmount.current) {
-      boxPostAmount.current.value = '0';
-    }
+    setBoxPostAmountValue(0);
+    // if (boxPostAmount.current) {
+    //   boxPostAmount.current.value = '0';
+    // }
     setSearchQuery({
       searchRegion: '',
       searchKind: '',
@@ -203,14 +205,41 @@ export default function MateBoard() {
   }
 
   const boxSearch = ():void => {
-    const boxPostAmountValue = Number(boxPostAmount.current?.value);
+    // const boxPostAmountValue = Number(boxPostAmount.current?.value);
     let boxPostTypeValue = '';
     if(boxPostType.length === 1 ) {
       boxPostTypeValue = boxPostType[0].toString();
     }
-    
+
+    const regionDataString = regionDataList.toString();
+
+    const replaceMap: {[key: string]: string} = {
+      '서울 ': '서울특별시 ',
+      '부산 ': '부산광역시 ',
+      '대구 ': '대구광역시 ',
+      '인천 ': '인천광역시 ',
+      '광주 ': '광주광역시 ',
+      '대전 ': '대전광역시 ',
+      '울산 ': '울산광역시 ',
+      '세종 ': '세종특별자치시 ',
+      '경기 ': '경기도 ',
+      '경남 ': '경상남도 ',
+      '경북 ': '경상북도 ',
+      '충남 ': '충청남도 ',
+      '충북 ': '충청북도 ',
+      '전남 ': '전라남도 ',
+      '전북 ': '전라북도 ',
+      '강원 ': '강원도 ',
+      '제주 ': '제주도 '
+    };
+
+    const regex = new RegExp(Object.keys(replaceMap).join('|'), 'g');
+    const updatedRegionDataString = regionDataString.replace(regex, matched => replaceMap[matched]);
+    // console.log('updatedRegionDataString ', updatedRegionDataString);
+
     setSearchQuery({
-      searchRegion: regionDataList.toString(),
+      // searchRegion: regionDataList.toString(),
+      searchRegion: updatedRegionDataString,
       searchKind: kindDataList.toString(),
       searchType: boxPostTypeValue,
       searchAmount: boxPostAmountValue,
@@ -346,16 +375,17 @@ export default function MateBoard() {
           <div className={style.boxCategory}>
             <span>구분</span>
             <div>
-              <input type='checkbox' value='구함' id='boxCategoryWanted' onChange={postTypeChangeFunction} />
+              <input type='checkbox' value='1' id='boxCategoryWanted' onChange={postTypeChangeFunction} checked={boxPostType.includes('1')} />
               <label htmlFor='boxCategoryWanted'>구함</label>
-              <input type='checkbox' value='지원' id='boxCategorySupport' onChange={postTypeChangeFunction} />
+              <input type='checkbox' value='2' id='boxCategorySupport' onChange={postTypeChangeFunction} checked={boxPostType.includes('2')} />
               <label htmlFor='boxCategorySupport'>지원</label>
             </div>
           </div>
           <div className={style.boxAmount}>
             <span>금액</span>
             <div>
-              <input ref={boxPostAmount} type='number' placeholder='0' min='0' defaultValue='0' />
+              {/* <input ref={boxPostAmount} type='number' placeholder='0' min='0' defaultValue='0' /> */}
+              <input type='number' placeholder='0' min='0' value={boxPostAmountValue} onChange={(e) => setBoxPostAmountValue(Number(e.target.value))} />
               <span>원 이상</span>
             </div>
           </div>
