@@ -295,8 +295,9 @@ export default function MateDetail() {
     <>
     <div className={style.wrap}>
       <div className={style.top}>
-        <img src={emptyHeart} alt='emptyHeart' />
-        <img src={share} alt='share' />
+        {/* 기능 준비 중 */}
+        {/* <img src={emptyHeart} alt='emptyHeart' /> */}
+        {/* <img src={share} alt='share' /> */}
       </div>
       <div className={style.body}>
         {/* 사진 */}
@@ -332,16 +333,18 @@ export default function MateDetail() {
             {/* <p>트레디셔널 페르시안</p> */}
             <p>{data?.data.Animals?.animalsCategory2}</p>
           </div>
-          <div className={style.grade}>
+          {/* 서비스 준비중 */}
+          {/* <div className={style.grade}>
             <img src={star} alt='star' />
             <p>4.6 (123)</p>
-          </div>
-          <div className={style.interest}>
+          </div> */}
+          {/* 서비스 준비중 */}
+          {/* <div className={style.interest}>
             <img src={interest} alt='interest' />
             <p>97명</p>
             <p>이 이 글에 관심을 가지고 있어요!</p>
-          </div>
-          {/* 채팅, 위치 버튼 */}
+          </div> */}
+          {/* 채팅, 위치 버튼 - 미사용으로 주석처리 */}
           {/* <div className={style.buttonGroup}>
             <div>
               <img src={chatting} alt='chatting' />
