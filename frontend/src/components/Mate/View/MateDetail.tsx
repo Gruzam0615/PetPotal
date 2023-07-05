@@ -279,7 +279,18 @@ export default function MateDetail() {
         navigater(`/mate/detail/update/${mateBoardIndexNumber}`);
       }
     });
+    return ;
   }
+
+  const matePostContact = ():void => {
+    openAlert({
+      title: '메이트 연락하기 기능',
+      type: 'error',
+      content: '준비 중인 기능입니다.',
+    });
+    return ;
+  }
+
   return (
     <>
     <div className={style.wrap}>
@@ -331,7 +342,7 @@ export default function MateDetail() {
             <p>이 이 글에 관심을 가지고 있어요!</p>
           </div>
           {/* 채팅, 위치 버튼 */}
-          <div className={style.buttonGroup}>
+          {/* <div className={style.buttonGroup}>
             <div>
               <img src={chatting} alt='chatting' />
               <span>연락하기</span>
@@ -340,7 +351,7 @@ export default function MateDetail() {
               <img src={locationMap} alt='locationMap' />
               <span>위치보기</span>
             </div>
-          </div>
+          </div> */}
           {/* 내용 2 */}
           <div className={style.title}>
             <p>제목</p>
@@ -395,7 +406,7 @@ export default function MateDetail() {
         </div>
       </div>
       <div className={style.footer}>
-        <button type='button'>연락하기</button>
+        <button type='button' onClick={matePostContact}>연락하기</button>
       </div>
     </div>
     </>
