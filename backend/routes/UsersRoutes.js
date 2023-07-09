@@ -30,6 +30,7 @@ router.post('/auth', UsersController.loginStatusCheck);
 
 router.get('/sessionGet', (req, res) => {
   return res.send({
+    "req.hostname": req.hostname,
     "req.port": req.socket.localPort,
     'req.session': req.session,
     'req.passport': req._passport,

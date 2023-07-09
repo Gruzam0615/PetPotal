@@ -17,7 +17,8 @@ const app = express();
 const port = 3010;
 
 const corsOptions = {
-  origin: 'http://localhost',
+  origin: true,
+  // methods: "GET, POST, PUT, DELETE",
   credentials: true,
 };
 
